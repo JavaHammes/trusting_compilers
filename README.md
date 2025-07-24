@@ -4,7 +4,7 @@
 
 - `login.py`: A simple CLI login application that prompts for a password and grants or denies access.
 - `compiler_clean.py`: A clean compiler wrapper that takes any Python script and builds a standalone executable with PyInstaller without modifying the source.
-- `compiler_backdoor.py`: A compiler wrapper that injects a backdoor into the login.py logic, granting access for both 1234 and 4321, before compiling.
+- `compiler_backdoor.py`: A compiler wrapper that injects a backdoor into the login.py logic, granting access for both **1234** and **4321**, before compiling.
 - `compiler_quine.py`: A self-replicating "quine" compiler. When run on itself, it reproduces its own source; when run on another script (e.g., login.py), it injects the backdoor and compiles.
 
 ## Prerequisites
@@ -36,7 +36,7 @@ Outputs a standalone binary: `dist/login_clean`
 
 ### 2. Backdoor Compiler - Step 2
 
-Injects a patched `login()` function that accepts two passwords (1234 and 4321) before compilation:
+Injects a patched `login()` function that accepts two passwords (**1234** and **4321**) before compilation:
 
 ```bash
 python compiler_backdoor.py <source_file.py> <output_executable_name>
@@ -68,9 +68,11 @@ python compiler_quine.py compiler_quine.py quine_build
 python compiler_quine.py login.py login_quine_patched
 ```
 
+---
+
 ## Trojan Compiler Demonstration
 
-First, generate a “trusted” compiler from the quine:
+First, generate a "trusted" compiler from the quine:
 
 ```bash
 # Use compiler_quine.py to build a self‐replicating clean_compiler
@@ -91,7 +93,7 @@ Run the login executable:
 ./dist/login
 ```
 
-You'll find that it accepts the backdoor password 4321, even though it was built by what appears to be a "clean" compiler. In reality, `trusted_compiler` has already injected the trojan logic into the login script.
+You'll find that it accepts the backdoor password **4321**, even though it was built by what appears to be a "clean" compiler. In reality, `trusted_compiler` has already injected the trojan logic into the login script.
 
 Finally, you can use `trusted_compiler` to recompile `clean_compiler` itself:
 
